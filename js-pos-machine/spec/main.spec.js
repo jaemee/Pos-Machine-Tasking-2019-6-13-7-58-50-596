@@ -47,9 +47,10 @@ it ('should return undefined if not exisitng barCode', () => {
 it ('should add all products to list checkout', () => {
     const barcodes = ['0001', '0003', '0005', '0003'];
     const result = main.createProductList(barcodes);
-    expect(result).toMatchObject([{"name" : "Coca Cola", "price": 3, "totalPrice": 3, "quantity": 1},
-                                {"name" : "Pepsi-Cola", "price": 5, "totalPrice": 10, "quantity": 2},
-                                {"name" : "Dr Pepper", "price": 7, "totalPrice": 7, "quantity": 1}]);
+    const expectedResult = [{"name" : "Coca Cola", "price": 3, "totalPrice": 3, "quantity": 1},
+                            {"name" : "Pepsi-Cola", "price": 5, "totalPrice": 10, "quantity": 2},
+                            {"name" : "Dr Pepper", "price": 7, "totalPrice": 7, "quantity": 1}];
+    expect(result).toMatchObject(expectedResult);
 });
 
 it ('should return null when a barcode is not valid', () => {
@@ -69,23 +70,26 @@ it ('should return total of products', () => {
 it ('should return printedReceipt when passed all validations', () => {
     const barcodes = ['0001', '0003', '0005', '0003', '0005'];
     const result = main.printReceipt(barcodes);
-    expect(result).toBe('Receipts\n' +
+    const expectedResult = 'Receipts\n' +
                         '------------------------------------------------------------\n' + 
                         'Coca Cola                       3          1\n' + 
                         'Pepsi-Cola                      5          2\n' + 
                         'Dr Pepper                       7          2\n' + 
                         '------------------------------------------------------------\n' +
-                        'Price: 27');
+                        'Price: 27';
+    expect(result).toBe(expectedResult);
 });
 
 it ('should return Error message for invalid barcode', () => {
     const barcodes = [];
     const result = main.printReceipt(barcodes);
-    expect(result).toBe('[ERROR]: Barcode is invalid');
+    const expectedResult = '[ERROR]: Barcode is invalid';
+    expect(result).toBe(expectedResult);
 });
 
 it ('should return error message when barcode is null', () => {
     const barcodes = [];
     const result = main.printReceipt(barcodes);
-    expect(result).toBe('[ERROR]: Barcode is invalid');
+    const expectedResult = '[ERROR]: Barcode is invalid';
+    expect(result).toBe(expectedResult);
 });
